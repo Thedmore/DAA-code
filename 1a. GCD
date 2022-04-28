@@ -1,0 +1,81 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int euclid(int,int);
+int GCD(int,int);
+int Meuclid(int,int);
+
+int main()
+{
+    int a,b,ans1,ans2,ans3;
+    printf("Enter two non negative numbers: ");
+    scanf("%d %d",&a,&b);
+    
+    // Method 1
+    printf("\nBy Euclid's algorithm:\n");
+    ans1=euclid(a,b);
+    printf("GCD = %d\n",ans1);
+    
+    if(a==0 || b==0)
+        printf("\nConsecute integer checking and modified Euclids algorithm does not work if one or both terms are zero\n");
+    else
+    {
+        // Method 2
+        printf("\nBy Consecutive integer checking algorithm:\n");
+        ans2=GCD(a,b);
+        printf("GCD = %d\n",ans2);
+    
+        // Method 3
+        printf("\nBy modified Euclid's algorithm:\n");
+        ans3=Meuclid(a,b);
+        printf("GCD = %d\n",ans3);
+    }
+    
+    return 0;
+}
+
+int euclid(int a, int b)
+{
+    int count=0,rem;
+    while (b != 0)
+    {
+        rem=a%b;
+        count++;
+        a=b;
+        b=rem;
+    }
+    printf("Counts = %d\n",count);
+    return a; 
+}
+
+int GCD(int a,int b)
+{
+    int c,i,count=0;
+    c = a>=b?a:b ;
+    for(i=c;i>=1;i--)
+    {
+        count++;
+        if(a%i==0 && b%i==0)
+        break;
+    }
+    printf("Counts = %d\n",count);
+    return i;
+}
+
+int Meuclid(int a, int b)
+{
+    int count=0;
+    while (a != b)
+    {
+        if (a > b) {
+            count++;
+            a = a - b;
+        }
+        else {
+            count++;
+            b = b - a;
+        }
+    }
+    printf("Counts = %d\n",count);
+    return a;         
+}
