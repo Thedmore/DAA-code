@@ -1,0 +1,101 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<time.h>
+
+int main()
+{
+    int n,arr[100],key,flag=0,count=0;
+    srand(time(0));
+    
+    printf("\nImplementing sequential search:\n ");
+    
+    n=rand()%100;
+    printf("\nNumber of terms = %d\n",n);
+    
+    for(int i=0;i<n;i++)
+        arr[i]=rand()%100;
+    
+    printf("\nList: \n");
+    for(int i=0;i<n;i++)
+        printf("%d ",arr[i]);
+    
+    key=rand()%100;
+    printf("\n\nKey = %d\n",key);
+    
+    for(int i=0;i<n;i++)
+    {
+        count++;
+        if(arr[i]==key)
+        {
+            flag=1;
+            printf("The key element %d is found at position %d.",key,(i+1));
+            break;
+        }
+    }
+    if(!flag)
+        printf("The key %d is not in the list.\n",key);
+    printf("Counts = %d\n",count);    
+    
+    printf("\nImplementing Binary search:\n ");
+    
+    n=rand()%100;
+    printf("\nNumber of terms = %d\n",n);
+    
+    int sum=0;
+    count=0;
+    system("rm binary_args.txt");
+    //system("rm binary_count.txt");
+    FILE *fp1,*fp2;
+    int i=0;flag=0;
+    srand(time(0));
+    //Create two text files with the name binary_args.txt and binary_count.txt
+    fp1=fopen("binary_args.txt","a"); 
+    fp2=fopen("binary_count.txt","a");
+    for(i=0;i<n;i++)
+    {
+        sum+=rand()%100;
+        arr[i]=10+(2*i);
+        fprintf(fp1,"%d ",arr[i]);
+    }
+    fclose(fp1);
+    //fclose(fp2);
+    
+    printf("\nList: \n");
+    for(int i=0;i<n;i++)
+        printf("%d ",arr[i]);
+    
+    int low=0,high=n,mid;
+    
+    key=rand()%100;
+    //key=arr[0];
+    //key=arr[n/2];
+    //key=arr[n/4];
+    printf("\n\nKey = %d\n",key);
+    
+    while(high >= low)
+    {
+        count++;
+        mid = (low + high) / 2;
+        if(key == arr[mid])
+            break;
+        else
+        {
+            if(key > arr[mid])
+                low = mid + 1;
+            else
+                high = mid - 1;
+        }
+    }
+    if(key==arr[mid])
+    {
+        printf("\nThe element is present in the location %d",(mid+1));
+    }
+    else
+    {
+        printf("\nThe element is not present in the array");
+    }
+    fprintf(fp2,"%d\n",count);
+    printf("\nCounts = %d",count);
+    
+    return 0;
+}
